@@ -24,6 +24,15 @@ gsettings set org.gnome.desktop.wm.keybindings move-to-side-w "['<Super><Control
 gsettings set org.gnome.shell.keybindings show-screenshot-ui "['<Shift><Control><Alt>r']"
 gsettings set org.gnome.shell.keybindings show-screen-recording-ui "[]"
 
+# Media keys (required for Kanata P, [, ], ;, ' aliases)
+gsettings set org.gnome.settings-daemon.plugins.media-keys play "['<Control><Super>slash']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys previous "['<Control><Super>comma']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys next "['<Control><Super>period']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys volume-mute "['F5']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys volume-down "['F6']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys volume-up "['F7']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys mic-mute "['F8']"
+
 echo "Done. Keybindings set."
 echo ""
 echo "Tip: If the spatial positioning shortcuts don't work, install GNOME Tweaks"

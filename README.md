@@ -34,7 +34,8 @@ keys; holds longer than 200ms activate the modifier/layer.
 ### NixOS (Declarative)
 
 1. Copy `nixos/kanata.nix` into your NixOS configuration and import it.
-2. Copy `nixos/gnome-keybindings.nix` into your Home Manager GNOME config (or set the dconf values manually).
+2. Copy `nixos/gnome-keybindings.nix` into your Home Manager configuration
+   (it uses `dconf.settings` and requires Home Manager).
 3. Rebuild:
 
 ```bash
@@ -48,7 +49,16 @@ The Kanata service auto-starts on boot. No manual `systemctl` needed.
 1. **Install Kanata** following the official instructions:
    <https://github.com/jtroo/kanata>
 
-2. **Copy the config:**
+2. **Ensure your user can access input devices.** Kanata needs to read from
+   `/dev/input/event*`. Most distros require your user to be in the `input`
+   group:
+
+```bash
+sudo usermod -aG input $USER
+# Log out and back in for this to take effect
+```
+
+3. **Copy the config:**
 
 ```bash
 mkdir -p ~/.config/kanata
@@ -217,6 +227,16 @@ Hold any F-key to activate its secondary function:
 | **F8**  | F8          | Toggle microphone       |
 | **F9**  | F9          | Screenshot              |
 | **F10** | F10         | Lock screen             |
+
+> **Note:** The hold actions for brightness (F3/F4) and volume/mic (F5–F8) send
+> key combinations (`Ctrl+Meta+Down/Up`, `Alt+F5`–`Alt+F8`) that are **not bound
+> by default in GNOME**. If these hold actions don't work out of the box, bind
+> them manually in GNOME Settings → Keyboard → Custom Shortcuts, or edit the
+> Kanata aliases to send different combos.
+>
+> **F1 hold** requires the
+> [Quake Terminal](https://extensions.gnome.org/extension/7604/quake-terminal/)
+> GNOME extension.
 
 ---
 
@@ -431,7 +451,8 @@ gnome-kanata/
 
 | Problem                               | Fix                                                                                         |
 | ------------------------------------- | ------------------------------------------------------------------------------------------- |
-| Kanata not starting                   | `systemctl --user status kanata.service` (standard) or `systemctl status kanata-kanata.service` (NixOS) |
+| Kanata not starting (standard)        | Ensure your user is in the `input` group; then `systemctl --user restart kanata.service` |
+| Kanata not starting (NixOS)           | `systemctl status kanata-kanata.service`                                                    |
 | Keys feel "sticky"                    | Increase `hold-time` in `kanata.kbd`                                                        |
 | Spatial positioning doesn't work      | Re-run `./setup-gnome-keybindings.sh` (standard) or verify dconf values (NixOS)             |
 | Want to reload config without restart | Hold S, tap F12 (Layer 3)                                                                   |

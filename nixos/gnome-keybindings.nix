@@ -21,5 +21,16 @@
       show-screen-recording-ui = [];
       show-screenshot-ui = ["<Shift><Control><Alt>r"];
     };
+
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      custom-keybindings = [];
+      mic-mute = ["F8"];
+      next = ["<Control><Super>period"];
+      play = ["<Control><Super>slash"];
+      previous = ["<Control><Super>comma"];
+      volume-down = ["F6"];
+      volume-mute = ["F5"];
+      volume-up = ["F7"];
+    };
   };
 }
